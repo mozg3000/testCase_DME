@@ -134,28 +134,36 @@
             this.error = 'Нужны все две даты'
         }
       },
+      // Паттерн шаблонный метод
+      // Реализует обобщённую логику сортировки\фильтрации для всей страницы
       commandHandler(){
-
+        //  Если нет текста в поиске и не нет выборки даты
         if(!this.searchLine && !this.isRanged){
           this.staff = this.$store.getters.getAllStaff;
         }else{
+          //  Если текст поиска стирается
           if(this.searchLineLength > this.searchLine.length){
             this.staff = this.$store.getters.getAllStaff;
           }
+          // Делаем поиск по поисковому запросу , если он есть
           if(this.searchLine){
             this.filterInput();
           }
+          // Делаем выборку по датам, если задан интервал
           if (this.isRanged){
             this.filterPeriod()
           }
         }
+        // Сортируем, если стоят галочки
         if (this.$store.getters.isSortedByName){
           this.sortByName();
         }else if (this.$store.getters.isSortedByDate){
           this.sortByDate();
         }
+        // Сохраняем длину поискового запроса, чтоб знать если его начнут стирать
         this.searchLineLength = this.searchLine.length;
       },
+      // Поиск по введёному тексту
       filterInput(){
         this.error = '';
         let regexp = new RegExp(this.searchLine, 'i');
@@ -167,6 +175,7 @@
           this.error = 'Nothing found';
         }
       },
+      // Обработчик события нажатия на кнопку сортировки в шабке таблицы
       sortTable(e){
         if(e.target.checked){
           switch (e.target.name) {
@@ -184,17 +193,21 @@
             }
           }
         }else{
+          //  Снятие сортировки
           this.$store.commit('setIsSortedByDate', false);
           this.$store.commit('setIsSortedByName', false);
           this.commandHandler();
         }
       },
+      //  Сортировка по фамилии
       sortByName(){
         this.staff =  [...this.staff].sort(lastNameComparator);
       },
+      //  Сортировка по дате рождения
       sortByDate(){
         this.staff =  [...this.staff].sort(dateComparator);
       },
+      //  Загрузка данных с сервера
       async loadStaff(){
         this.isLoading = true;
         try {
@@ -211,6 +224,7 @@
       },
     },
     beforeMount() {
+      //  Инициализация сохранённого состояния
       this.startDate = this.$store.getters.getStartDate;
       this.endDate = this.$store.getters.getEndDate;
       this.searchLine = this.$store.getters.getSearchLine;
