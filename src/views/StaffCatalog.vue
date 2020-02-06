@@ -117,6 +117,7 @@
         this.endDate = '';
         this.commandHandler();
       },
+      //  Выборка по интервалу дат
       filterPeriod(){
         this.error = '';
         if(this.startDate && this.endDate){
