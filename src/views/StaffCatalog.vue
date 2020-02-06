@@ -135,6 +135,7 @@
         }
       },
       commandHandler(){
+
         if(!this.searchLine && !this.isRanged){
           this.staff = this.$store.getters.getAllStaff;
         }else{
@@ -148,10 +149,10 @@
             this.filterPeriod()
           }
         }
-        if (this.isSortedByName){
-          this.sortByName()
-        }else if (this.isSortedByDate){
-          this.sortByDate()
+        if (this.$store.getters.isSortedByName){
+          this.sortByName();
+        }else if (this.$store.getters.isSortedByDate){
+          this.sortByDate();
         }
         this.searchLineLength = this.searchLine.length;
       },
