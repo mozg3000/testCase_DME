@@ -41,21 +41,29 @@
   a
     text-decoration: none
     color: black
+
   .staff-row
     display: flex
     text-align: center
     margin-top: 30px
-    font-weight: bold
+    align-items: center
+    &:hover
+      background-color: lightgray
     &-col1
       flex-basis: 0
       flex-grow: 3
       text-align: left
+      padding-left: 10px
     &-col2
       flex-basis: 0
       flex-grow: 1
       text-align: left
+      padding-left: 10px
     &-col3
       flex-basis: 0
       flex-grow: 2
-      text-align: center
+      padding-left: 10px
+      img
+        vertical-align: middle
+
 </style>
